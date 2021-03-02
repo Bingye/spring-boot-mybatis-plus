@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    name: 测试库
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dev?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 10
+      idle-timeout: 60000
+      max-lifetime: 59990
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+      validation-timeout: 5000
+      pool-name: HikariPool-test
+      auto-commit: true
+
+mybatis-plus:
+  #config-location: classpath:/mybatis-config.xml
+  mapper-locations: classpath*:mapper/*.xml
+  #开启后，mapper.xml 对象可以不写全路径
+  type-aliases-package: com.bingye.domain.po
+  #全局设置id的生成策略
+  global-config:
+    db-config:
+      #可以不在po主键上配置@TableId的ID策略 , 注：Oracle 不支持自增长
+      id-type: auto #oracle 设置成input自己设置ID方式
+      #全局添加表名前缀，不需要所有po配置@TableName配置项
+      table-prefix: t_
+  #config-location 不能和此配置共存
+  configuration:
+    #采用驼峰命名法，默认开启
+    map-underscore-to-camel-case: true
+    #启用二级缓存，默认启用
+    cache-enabled: true
+
+logging:
+  level:
+    com.bingye: debug
